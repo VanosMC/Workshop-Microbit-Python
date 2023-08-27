@@ -1,33 +1,39 @@
-from microbit   import pin0, pin1, pin2, pin8, sleep, statistics
+from microbit   import pin0, pin1, pin2, pin8, sleep
 
-geradeAcceptable = 100
-nichtAcceptable = 200
+# Bedingungen
+keinWert = 10
+ok = 300
+nichtok = 400
 
 while True:
     # Werte messen mit Analog Sound Sensor
     s = pin0.read_analog()
-    sleep(600)
+    sleep(100)
     print(s)
 
-    # Generiere eine Liste mit Werte der letzte Minute 100 Messungen
-    myList = #Liste generieren, aber wie?
-
-    # Mittelwert dieser Werte berechnen
-    mean = statistics.mean(myList)
-    print("Mittelwert =" + str(mean))    
-
-    # pins alle ausschalten
+    # pins alle ausschalten, damit keine doppelt Besetzung entsteht.
     pin1.write_digital(0)
     pin2.write_digital(0)
     pin8.write_digital(0)
 
-    # schlussfolgerung Mittelwert
-    if mean < geradeAcceptable
+    # Wenn keine Werte gemessen sind die Pins ausgeschalten.   
+    if s <= keinWert:
+        pin1.write_digital(0)
+        pin2.write_digital(0)
+        pin8.write_digital(0)
+
+    # Wenn einen Wert rauskommt.
+    elif s < ok and s > keinWert:
         pin1.write_digital(1)
+        sleep(1000)
 
-    elif mean > nichtAcceptable
+    elif s > nichtok:
         pin8.write_digital(1)
-
-    else:
+        sleep(1000)
+    
+    elif s > ok and s < nichtok:
         pin2.write_digital(1)
-
+        sleep(1000)
+      
+    
+        

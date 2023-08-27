@@ -1,21 +1,19 @@
 
 from microbit import pin0, pin2, pin8, pin9, sleep
 
+geradeAcceptable = 100
+nichtAcceptable = 200
 
+  # Generiere eine Liste mit Werte der letzte Minute 100 Messungen
+MeasuringPeriod = 60000
 
-while True:
+myList = []
+while True
+    # Werte erzeugen und in einer Liste eingeben
     s = pin0.read_analog()
     print(s)
-
-    if s >= 250:
-        pin9.write_digital(1)
+    myList.append(s)
         
-    elif s >= 100  and s < 250:
-        pin8.write_digital(1)
-
-    else:
-        pin2.write_digital(1)
-    pin2.write_digital(0)
-    pin8.write_digital(0)
-    pin9.write_digital(0)
-    sleep(1000)
+    # Mittelwert dieser Liste berechnen
+    mean = statistics.mean(myList)
+    print("Mittelwert =" + str(mean))    
